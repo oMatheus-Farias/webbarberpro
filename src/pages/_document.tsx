@@ -1,13 +1,18 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { JSX } from 'react';
 
-export default function Document() {
-  return (
-    <Html lang="en">
-      <Head />
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  )
-}
+export default class MyDocument extends Document{
+  render(): JSX.Element {
+    return(
+      <Html>
+        <Head>
+
+        </Head>
+        <body>
+          <Main />          
+          <NextScript />
+        </body>
+      </Html>
+    );
+  };
+};
