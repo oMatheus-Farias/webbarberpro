@@ -7,7 +7,7 @@ export default function Login(){
         <title>BarberPRO - Faça login para acessar</title>
       </Head>
       <div>
-        <h1>Page Login</h1>
+        <h1 className='text-white' >Page Login</h1>
       </div>
     </>
   );
