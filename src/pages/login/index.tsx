@@ -17,7 +17,7 @@ export default function Login(){
           className='mb-10'
         />
 
-        <form className='w-full flex flex-col gap-3' >
+        <form className='w-full flex flex-col gap-3 max-w-[31.25em]' >
           <input
             className='w-full rounded h-11 px-4 text-white bg-primary'
             type='email'
