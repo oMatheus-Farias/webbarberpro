@@ -1,9 +1,17 @@
+import { useState, FormEvent } from 'react';
 import Head from 'next/head';
 import logo from '../../../public/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Login(){
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function handleLogin(){
+    alert ('Teste');
+  };
+
   return(
     <>
       <Head>
@@ -17,21 +25,31 @@ export default function Login(){
           className='mb-10'
         />
 
-        <form className='w-full flex flex-col gap-3 max-w-[31.25em]' >
+        <form 
+          onSubmit={ handleLogin }
+          className='w-full flex flex-col gap-3 max-w-[31.25em]' 
+        >
           <input
             className='w-full rounded h-11 px-4 text-white bg-primary'
             type='email'
             name='email'
             placeholder='Digite seu email...'
+            value={ email }
+            onChange={ (event) => setEmail(event.target.value) }
           />
           <input
             className='w-full rounded h-11 px-4 text-white bg-primary'
             type='password'
             name='password'
             placeholder='************'
+            value={ password }
+            onChange={ (event) => setPassword(event.target.value) }
           />
 
-          <button className='w-full rounded h-11 bg-secondary font-bold text-bg' >
+          <button 
+            type='submit'
+            className='w-full rounded h-11 bg-secondary font-bold text-bg' 
+          >
             Acessar
           </button>
         </form>
