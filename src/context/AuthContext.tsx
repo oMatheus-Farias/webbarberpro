@@ -8,6 +8,7 @@ interface AuthContextData{
   user: UserProps,
   isAuthenticated: boolean,
   signIn: (credencials: SignInProps) => Promise<void>, 
+  signUp: (credencials: SignUpProps) => Promise<void>,
 };
 
 interface UserProps{
@@ -24,6 +25,12 @@ interface SubdcriptionsProps{
 };
 
 interface SignInProps{
+  email: string,
+  password: string,
+};
+
+interface SignUpProps{
+  name: string,
   email: string,
   password: string,
 };
@@ -85,8 +92,30 @@ export default function AuthProvider({ children }: ContextChildren){
     };
   };
 
+  async function signUp({ name, email, password }: SignUpProps){
+    try{
+      if(name === '' || email === '' || password === ''){
+        toast.error('Preencha todos os campos.');
+        return;
+      };
+
+      await api.post('/users', {
+        name,
+        email,
+        password,
+      });
+
+      Router.push('/login');
+      toast.success('Cadastro realizado com sucesso!');
+
+    }catch(error){
+      console.log('Erro ao fazer cadastro', error);
+      toast.error('Ocorreu um erro');
+    };
+  };
+
   return(
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }} >
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp }} >
       { children }
     </AuthContext.Provider>
   );

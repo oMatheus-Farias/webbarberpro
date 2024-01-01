@@ -1,16 +1,25 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 import Head from 'next/head';
 import logo from '../../../public/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Register(){
+  const { signUp } = useContext(AuthContext);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleRegister(){
-    alert('Teste');
+  async function handleRegister(event: FormEvent<HTMLFormElement>){
+    event.preventDefault();
+
+    await signUp({
+      name,
+      email,
+      password,
+    });
   };
 
   return(
