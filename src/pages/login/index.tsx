@@ -1,15 +1,23 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 import Head from 'next/head';
 import logo from '../../../public/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Login(){
+  const { signIn } = useContext(AuthContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleLogin(){
-    alert ('Teste');
+  async function handleLogin(event: FormEvent<HTMLFormElement>){
+    event.preventDefault();
+
+    await signIn({
+      email,
+      password,
+    });
   };
 
   return(
