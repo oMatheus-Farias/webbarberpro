@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useState } from 'react';
-import { destroyCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
 import Router from 'next/router';
+import { api } from '../service/apiClient';
 
 interface AuthContextData{
   user: UserProps,
@@ -46,8 +47,39 @@ export default function AuthProvider({ children }: ContextChildren){
   const isAuthenticated = !!user;
 
   async function signIn({ email, password }: SignInProps){
-    console.log(email);
-    console.log(password);
+    try{
+      if(email === '' || password === ''){
+        alert('Email/senha inválidos!');
+        return;
+      };
+
+      const response = await api.post('/session', {
+        email,
+        password,
+      });
+
+      const { id, name, endereco, subscriptions, token } = response.data;
+
+      setCookie(undefined, '@barber.token', token, {
+        maxAge: 60 * 60 * 24 * 30,
+        path: '/',
+      });
+
+      setUser({
+        id,
+        name,
+        email,
+        endereco,
+        subscriptions,
+      });
+
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      Router.push('/dashboard');
+
+    }catch(error){
+      console.log('Erro ao fazer login');
+    };
   };
 
   return(
