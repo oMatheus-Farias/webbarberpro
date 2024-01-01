@@ -2,6 +2,7 @@ import { ReactNode, createContext, useState } from 'react';
 import { destroyCookie, setCookie } from 'nookies';
 import Router from 'next/router';
 import { api } from '../service/apiClient';
+import toast from 'react-hot-toast';
 
 interface AuthContextData{
   user: UserProps,
@@ -49,7 +50,7 @@ export default function AuthProvider({ children }: ContextChildren){
   async function signIn({ email, password }: SignInProps){
     try{
       if(email === '' || password === ''){
-        alert('Email/senha inválidos!');
+        toast.error('Email/senha inválidos!');
         return;
       };
 
@@ -76,9 +77,11 @@ export default function AuthProvider({ children }: ContextChildren){
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       Router.push('/dashboard');
+      toast.success('Bem-vindo(a)');
 
     }catch(error){
       console.log('Erro ao fazer login');
+      toast.error('Ocorreu algum erro');
     };
   };
 
