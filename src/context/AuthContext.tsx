@@ -9,6 +9,7 @@ interface AuthContextData{
   isAuthenticated: boolean,
   signIn: (credencials: SignInProps) => Promise<void>, 
   signUp: (credencials: SignUpProps) => Promise<void>,
+  signOutUser: () => Promise<void>,
 };
 
 interface UserProps{
@@ -114,8 +115,20 @@ export default function AuthProvider({ children }: ContextChildren){
     };
   };
 
+  async function signOutUser(){
+    try{
+      destroyCookie(null, '@barber.token', { path: '/' });
+      Router.push('/login');
+      setUser(null);
+      
+    }catch(error){
+      console.log('Erro ao fazer logOut', error);
+      toast.error('Ocorreu um erro.')
+    };
+  };
+
   return(
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp }} >
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, signOutUser }} >
       { children }
     </AuthContext.Provider>
   );
