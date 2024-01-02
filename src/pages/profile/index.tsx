@@ -6,6 +6,8 @@ import { SidebarDasktop } from '@/components/sidebarDasktop';
 
 import { canSSRAuth } from '@/utils/canSSRAuth';
 import { setupAPIClient } from '@/service/api';
+import { api } from '@/service/apiClient';
+import toast from 'react-hot-toast';
 
 interface UserProps{
   id: string,
@@ -27,6 +29,26 @@ export default function Profile({ user, premium }: ProfileProps){
 
   async function handleLogout(){
     await signOutUser();
+  };
+
+  async function handleUpdateUser(){
+    if(name === ''){
+      toast.error('O nome é obrigatório');
+      return;
+    };
+
+    try{
+      await api.put('/users', {
+        name,
+        endereco: address,
+      });
+
+      toast.success('Dados alterados com sucesso!');
+
+    }catch(err){
+      console.log(err);
+      toast.error('Ocorreu um erro');
+    };
   };
 
   return(
@@ -76,7 +98,10 @@ export default function Profile({ user, premium }: ProfileProps){
               </div>
 
               <div className='flex flex-col gap-4 w-full mt-4' >
-                <button className='w-full rounded h-11 text-bg font-extrabold bg-secondary' >
+                <button 
+                  className='w-full rounded h-11 text-bg font-extrabold bg-secondary'
+                  onClick={ handleUpdateUser } 
+                >
                   Salvar
                 </button>
 
