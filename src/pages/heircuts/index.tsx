@@ -24,20 +24,26 @@ export default function Heircuts(){
       <Container>
         {mobileScreen !== null ? mobileScreen ? <HeaderMobile/> : <SidebarDasktop/> : ''}
         
-        <header className='p-5 w-full max-w-[50em]' >
-          <div className='flex items-center justify-between' >
-            <h1 className='text-xl text-secondary font-bold' >Modelos de cortes</h1>
-            
-            <div className='flex gap-2 items-center' >
-              <p 
-                className="text-white font-bold uppercase text-sm" >
-                { isChecked ? 'Ativos' : 'Inativos' }
-              </p>
+        <div className='p-5 w-full max-w-[50em]' >
+          <header>
+            <div className='flex items-center justify-between' >
+              <h1 className='text-xl text-secondary font-bold lg:text-3xl' >Modelos de cortes</h1>
 
-              <Switch isChecked={ isChecked } handleCheckboxChange={ handleCheckboxChange } />
+              <div className='flex gap-2 items-center' >
+                <p 
+                  className="text-white font-bold uppercase text-sm" >
+                  { isChecked ? 'Ativos' : 'Inativos' }
+                </p>
+
+                <Switch isChecked={ isChecked } handleCheckboxChange={ handleCheckboxChange } />
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
+
+          <button className='h-9 text-white font-bold bg-btnColor px-3 rounded mt-4' >
+            Cadastrar novo
+          </button>
+        </div>
       </Container>
     </>
   );

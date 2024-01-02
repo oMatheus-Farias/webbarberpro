@@ -18,6 +18,7 @@ module.exports = {
         green: '#00CD52',
         red: '#FF3E3E',
         gray: '#585858',
+        btnColor: '#2D3748',
       },
     },
   },
