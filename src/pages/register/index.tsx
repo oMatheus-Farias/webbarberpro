@@ -5,6 +5,8 @@ import logo from '../../../public/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { CanSSRGuest } from '@/utils/canSSRGuest';
+
 export default function Register(){
   const { signUp } = useContext(AuthContext);
 
@@ -84,3 +86,9 @@ export default function Register(){
     </>
   );
 };
+
+export const getServerSideProps = CanSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  };
+});
