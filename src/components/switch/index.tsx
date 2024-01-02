@@ -7,11 +7,7 @@ type SwitchProps = {
 
 export function Switch({ isChecked, handleCheckboxChange }: SwitchProps){
   return(
-    <label className='cursor-pointer flex gap-2 items-center' >
-      <p 
-        className="text-white font-bold uppercase text-sm" >
-        { isChecked ? 'Ativos' : 'Inativos' }
-      </p>
+    <label className='cursor-pointer' >
       <div>
         <input 
           type='checkbox' checked={ isChecked } onChange={ handleCheckboxChange } 

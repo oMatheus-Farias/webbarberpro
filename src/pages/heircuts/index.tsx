@@ -27,7 +27,15 @@ export default function Heircuts(){
         <header className='p-5 w-full max-w-[50em]' >
           <div className='flex items-center justify-between' >
             <h1 className='text-xl text-secondary font-bold' >Modelos de cortes</h1>
-            <Switch isChecked={ isChecked } handleCheckboxChange={ handleCheckboxChange } />
+            
+            <div className='flex gap-2 items-center' >
+              <p 
+                className="text-white font-bold uppercase text-sm" >
+                { isChecked ? 'Ativos' : 'Inativos' }
+              </p>
+
+              <Switch isChecked={ isChecked } handleCheckboxChange={ handleCheckboxChange } />
+            </div>
           </div>
         </header>
       </Container>
