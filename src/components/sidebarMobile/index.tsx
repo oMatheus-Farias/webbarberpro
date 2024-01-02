@@ -6,7 +6,7 @@ import Link from 'next/link';
 export function SidebarMobile({ close, openSideBar }){
   return(
     <div 
-      className="w-full min-h-screen absolute top-0 left-0 transition-all bg-primary" 
+      className="w-full min-h-screen absolute top-0 left-0 transition-all bg-primary z-10" 
       style={{ transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)' }}
     >
       <header className='w-full px-4 py-5 h-20 flex items-center justify-between' >
