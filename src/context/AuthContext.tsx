@@ -58,6 +58,7 @@ export default function AuthProvider({ children }: ContextChildren){
   const [mobileScreen, setMobileScreen] = useState(null);
 
   useEffect(() => {
+    window.addEventListener('resize', setScreenSize);
     setScreenSize();
 
     const { '@barber.token': token } = parseCookies();

@@ -3,7 +3,7 @@ import { FiScissors, FiClipboard  } from 'react-icons/fi';
 import { MdOutlineSettings } from "react-icons/md";
 import Link from 'next/link';
 
-export function SideBarMobile({ close, openSideBar }){
+export function SidebarMobile({ close, openSideBar }){
   return(
     <div 
       className="w-full min-h-screen absolute top-0 left-0 transition-all bg-primary" 

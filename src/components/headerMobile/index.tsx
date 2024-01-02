@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SideBarMobile } from '../sidebarMobile';
+import { SidebarMobile } from '../sidebarMobile';
 import { FiMenu } from 'react-icons/fi';
 
 export function HeaderMobile(){
@@ -23,7 +23,7 @@ export function HeaderMobile(){
         </h1>
       </header>
 
-      <SideBarMobile close={ () => setOpenSidebar(false) } openSideBar={ openSidebar } />
+      <SidebarMobile close={ () => setOpenSidebar(false) } openSideBar={ openSidebar } />
     </>
   );
 };
