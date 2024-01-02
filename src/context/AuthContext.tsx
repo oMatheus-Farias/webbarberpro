@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useState } from 'react';
-import { destroyCookie, setCookie } from 'nookies';
+import { ReactNode, createContext, useState, useEffect } from 'react';
+import { destroyCookie, setCookie, parseCookies } from 'nookies';
 import Router from 'next/router';
 import { api } from '../service/apiClient';
 import toast from 'react-hot-toast';
@@ -54,6 +54,27 @@ export function signOut(){
 export default function AuthProvider({ children }: ContextChildren){
   const [user, setUser] = useState<UserProps>();
   const isAuthenticated = !!user;
+
+  useEffect(() => {
+    const { '@barber.token': token } = parseCookies();
+
+    if(token){
+      api.get('/me').then((response) => {
+        const { id, name, email, endereco, subscriptions } = response.data;
+
+        setUser({
+          id,
+          name,
+          email,
+          endereco,
+          subscriptions,
+        });
+      })
+      .catch(() => {
+        signOut();
+      });
+    };
+  }, []);
 
   async function signIn({ email, password }: SignInProps){
     try{
