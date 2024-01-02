@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { canSSRAuth } from '@/utils/canSSRAuth';
 import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
+import { Container } from '@/components/container';
 
 export default function Dashboard(){
   const { mobileScreen } = useContext(AuthContext);
@@ -14,11 +15,11 @@ export default function Dashboard(){
         <title>BarberPRO - minha barbearia</title>
       </Head>
       
-      <div className='lg:flex' >
+      <Container>
         {mobileScreen !== null ? mobileScreen ? <HeaderMobile/> : <SidebarDasktop/> : ''}
 
         <h1 className='text-white' >Página Dashboard</h1>
-      </div>
+      </Container>
     </>
   );
 };

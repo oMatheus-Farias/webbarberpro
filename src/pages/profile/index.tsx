@@ -3,10 +3,10 @@ import { AuthContext } from '@/context/AuthContext';
 import Head from 'next/head';
 import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
+import { Container } from '@/components/container';
 
 import { canSSRAuth } from '@/utils/canSSRAuth';
 import { setupAPIClient } from '@/service/api';
-import { api } from '@/service/apiClient';
 import toast from 'react-hot-toast';
 
 interface UserProps{
@@ -38,7 +38,9 @@ export default function Profile({ user, premium }: ProfileProps){
     };
 
     try{
-      await api.put('/users', {
+      const apiClient = setupAPIClient();
+
+      await apiClient.put('/users', {
         name,
         endereco: address,
       });
@@ -56,7 +58,7 @@ export default function Profile({ user, premium }: ProfileProps){
       <Head>
         <title>Minha Conta - BarberPRO</title>
       </Head>
-      <div className='lg:flex' >
+      <Container>
         {mobileScreen !== null ? mobileScreen ? <HeaderMobile/> : <SidebarDasktop/> : ''}
 
         <main className='p-5 w-full max-w-[800px]' >
@@ -115,7 +117,7 @@ export default function Profile({ user, premium }: ProfileProps){
             </div>
           </section>
         </main>
-      </div>
+      </Container>
     </>
   );
 };
