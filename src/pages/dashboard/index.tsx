@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { canSSRAuth } from '@/utils/canSSRAuth';
+import { HeaderMobile } from '@/components/headerMobile';
 
 export default function Dashboard(){
   return(
@@ -7,7 +8,7 @@ export default function Dashboard(){
       <Head>
         <title>BarberPRO - minha barbearia</title>
       </Head>
-      <h1 className='text-white' >Pagina Dashboard</h1>
+      <HeaderMobile/>
     </>
   );
 };
