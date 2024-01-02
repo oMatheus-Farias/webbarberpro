@@ -14,7 +14,6 @@ export default function Dashboard(){
       <Head>
         <title>BarberPRO - minha barbearia</title>
       </Head>
-      
       <Container>
         {mobileScreen !== null ? mobileScreen ? <HeaderMobile/> : <SidebarDasktop/> : ''}
 

@@ -61,7 +61,7 @@ export default function Profile({ user, premium }: ProfileProps){
       <Container>
         {mobileScreen !== null ? mobileScreen ? <HeaderMobile/> : <SidebarDasktop/> : ''}
 
-        <main className='p-5 w-full max-w-[800px]' >
+        <main className='p-5 w-full max-w-[50em]' >
           <h1 className='text-3xl text-secondary font-bold' >Minha Conta</h1>
 
           <section className='w-full mt-6 bg-primary p-4 rounded' >
