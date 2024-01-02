@@ -4,7 +4,7 @@ import { MdOutlineSettings } from "react-icons/md";
 
 export function SidebarDasktop(){
   return(
-    <div className='w-full max-w-64 min-h-screen py-8 bg-primary' >
+    <div className='w-full max-w-56 min-h-screen py-8 bg-primary' >
       <h1 
         className='text-2xl font-extrabold text-white ml-8' 
       >
