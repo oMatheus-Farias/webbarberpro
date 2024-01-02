@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 interface AuthContextData{
   user: UserProps,
   isAuthenticated: boolean,
+  mobileScreen: boolean | null,
   signIn: (credencials: SignInProps) => Promise<void>, 
   signUp: (credencials: SignUpProps) => Promise<void>,
   signOutUser: () => Promise<void>,
@@ -54,8 +55,11 @@ export function signOut(){
 export default function AuthProvider({ children }: ContextChildren){
   const [user, setUser] = useState<UserProps>();
   const isAuthenticated = !!user;
+  const [mobileScreen, setMobileScreen] = useState(null);
 
   useEffect(() => {
+    setScreenSize();
+
     const { '@barber.token': token } = parseCookies();
 
     if(token){
@@ -75,6 +79,10 @@ export default function AuthProvider({ children }: ContextChildren){
       });
     };
   }, []);
+
+  function setScreenSize(){
+    window.innerWidth >= 1024 ? setMobileScreen(false) : setMobileScreen(true);
+  };
 
   async function signIn({ email, password }: SignInProps){
     try{
@@ -149,7 +157,16 @@ export default function AuthProvider({ children }: ContextChildren){
   };
 
   return(
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, signOutUser }} >
+    <AuthContext.Provider 
+      value={{ 
+        user, 
+        isAuthenticated,
+        mobileScreen, 
+        signIn, 
+        signUp, 
+        signOutUser 
+      }} 
+    >
       { children }
     </AuthContext.Provider>
   );
