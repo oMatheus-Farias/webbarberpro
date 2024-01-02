@@ -150,6 +150,7 @@ export default function AuthProvider({ children }: ContextChildren){
       destroyCookie(null, '@barber.token', { path: '/' });
       Router.push('/login');
       setUser(null);
+      toast.success('Volte sempre!');
       
     }catch(error){
       console.log('Erro ao fazer logOut', error);

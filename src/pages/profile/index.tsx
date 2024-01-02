@@ -1,11 +1,33 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 import Head from 'next/head';
 import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
 
-export default function Profile(){
-  const { mobileScreen } = useContext(AuthContext);
+import { canSSRAuth } from '@/utils/canSSRAuth';
+import { setupAPIClient } from '@/service/api';
+
+interface UserProps{
+  id: string,
+  name: string,
+  email: string,
+  endereco: string | null,
+};
+
+interface ProfileProps{
+  user: UserProps,
+  premium: boolean,
+};
+
+export default function Profile({ user, premium }: ProfileProps){
+  const { mobileScreen, signOutUser } = useContext(AuthContext);
+
+  const [name, setName] = useState(user && user?.name);
+  const [address, setAddress] = useState(user?.endereco ? user?.endereco : '');
+
+  async function handleLogout(){
+    await signOutUser();
+  };
 
   return(
     <>
@@ -24,22 +46,29 @@ export default function Profile(){
               <input
                 className='w-full h-10 mt-3 rounded mb-5 font-semibold text-white bg-bg px-3 border border-gray' 
                 type='text'
-                value='Barbearia do seu Zé'
-                onChange={() => {}}
+                placeholder='Nome da sua barbearia'
+                value={ name }
+                onChange={ (event) => setName(event.target.value) }
               />
               <label className='text-white font-bold' >Endereço:</label>
               <input
                 className='w-full h-10 mt-3 rounded mb-5 font-semibold text-white bg-bg px-3 border border-gray' 
                 type='text'
-                value='Rua silva, n29'
-                onChange={() => {}}
+                placeholder='Endereço da barbearia'
+                value={ address }
+                onChange={ (event) => setAddress(event.target.value) }
               />
             </form>
 
             <div>
               <label className='text-white font-bold' >Seu plano:</label>
               <div className='w-full flex px-3 py-2 justify-between items-center h-10 border mt-3 border-gray rounded' >
-                <p className='font-bold text-secondary' >Plano Premium</p>
+                <p 
+                  className='font-bold' 
+                  style={{ color: premium ? '#FBA931' : '#4DFFB4' }}
+                >
+                  { premium ? 'Plano Premium' : 'Plano Grátis' }
+                </p>
 
                 <button className='bg-green text-white text-sm font-bold px-2 py-1 rounded' >
                   Mudar Plano
@@ -51,7 +80,10 @@ export default function Profile(){
                   Salvar
                 </button>
 
-                <button className='w-full rounded h-11 border border-red text-red' >
+                <button 
+                  className='w-full rounded h-11 border border-red text-red' 
+                  onClick={ handleLogout }
+                >
                   Sair da conta
                 </button>
               </div>
@@ -62,3 +94,32 @@ export default function Profile(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  try{
+    const apiClient = setupAPIClient(ctx);
+    const response = await apiClient.get('/me');
+
+    const user = {
+      id: response.data.id,
+      name: response.data.name,
+      email: response.data.email,
+      endereco: response.data?.endereco,
+    };
+
+    return{
+      props:{
+        user,
+        premium: response.data?.subscriptions?.status === 'active' ? true : false,
+      },
+    };
+
+  }catch(err){
+    return{
+      redirect:{
+        destination: '/dashboard',
+        permanent: false,
+      },
+    };
+  };
+});
