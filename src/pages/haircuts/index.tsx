@@ -87,7 +87,7 @@ export default function Haircuts({ haircuts }: HaircutsProps){
           <main className='w-full flex flex-col' >
             {haircutList.map((item) => {
               return(
-                <Link key={ item.id } href={ `/haircut/${item.id}` } >
+                <Link key={ item.id } href={ `/haircuts/${item.id}` } >
                   <HaircutItem name={ item.name } price={ item.price } />
                 </Link>
               )
