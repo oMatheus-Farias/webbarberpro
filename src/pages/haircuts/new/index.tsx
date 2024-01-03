@@ -113,7 +113,7 @@ export default function NewHaircut({ subscriptions, count }: NewHaircutProps){
               <Link href='/plans' 
                 className='text-xs mt-5 text-white sm:text-sm'
               >
-                Você atingiou seu limite de cortes. <span className='text-green font-bold' >Seja premium</span>.
+                Você atingiu seu limite de cortes. <span className='text-green font-bold' >Seja premium</span>.
               </Link>
             )}
           </main>

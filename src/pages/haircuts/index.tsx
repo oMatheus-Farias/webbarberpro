@@ -9,7 +9,22 @@ import { Container } from '@/components/container';
 import { Switch } from '@/components/switch';
 import { IoPricetag } from "react-icons/io5";
 
-export default function Haircuts(){
+import { canSSRAuth } from '@/utils/canSSRAuth';
+import { setupAPIClient } from '@/service/api';
+
+interface HaircutsItem{
+  id: string,
+  name: string,
+  price: number | string,
+  status: boolean,
+  user_id: string,
+};
+
+interface HaircutsProps{
+  haircuts: HaircutsItem,
+};
+
+export default function Haircuts({ haircuts }: HaircutsProps){
   const { mobileScreen } = useContext(AuthContext);
 
   const [isChecked, setIsChecked] = useState(true);
@@ -77,3 +92,39 @@ export default function Haircuts(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  try{
+    const apiClient = setupAPIClient(ctx);
+
+    const response = await apiClient.get('/haircuts', {
+      params:{
+        status: true,
+      },
+    });
+
+    if(response.data === null){
+      return{
+        redirect:{
+          destination: '/dashboard',
+          permanent: false,
+        },
+      };
+    };
+
+    return{
+      props:{
+        haircuts: response.data,
+      },
+    };
+
+  }catch(err){
+    console.log(err);
+    return{
+      redirect:{
+        destination: '/dashboard',
+        permanent: false,
+      },
+    };
+  };
+});
