@@ -34,7 +34,7 @@ export function SidebarMobile({ close, openSideBar }){
             </Link>
           </li>
           <li>
-            <Link href='/heircuts' className='flex gap-4 items-center p-4 hover:bg-bg' >
+            <Link href='/haircuts' className='flex gap-4 items-center p-4 hover:bg-bg' >
               <FiClipboard size={20} color='#FFF' />
               Cortes
             </Link>

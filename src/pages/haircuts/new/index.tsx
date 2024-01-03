@@ -9,7 +9,15 @@ import { Container } from '@/components/container';
 
 import { FaChevronLeft } from "react-icons/fa";
 
-export default function New(){
+import { canSSRAuth } from '@/utils/canSSRAuth';
+import { setupAPIClient } from '@/service/api';
+
+interface NewHaircutProps{
+  subscriptions: boolean,
+  count: number,
+};
+
+export default function NewHaircut({ subscriptions, count }: NewHaircutProps){
   const { mobileScreen } = useContext(AuthContext);
 
   return(
@@ -22,7 +30,7 @@ export default function New(){
 
         <div className='p-5 w-full max-w-[50em]' >
           <section className='flex items-center gap-4' >
-            <Link href='/heircuts'>
+            <Link href='/haircuts'>
               <button 
                 className='h-6 text-white text-sm font-bold bg-btnColor px-3 rounded flex items-center gap-1' 
               >
@@ -53,14 +61,53 @@ export default function New(){
 
               <button 
                 className='w-full rounded h-11 text-bg font-extrabold bg-secondary' 
+                style={{ 
+                  opacity: !subscriptions && count >= 3 ? '0.4' : '1', 
+                  cursor: !subscriptions && count >= 3 ? 'not-allowed' : 'pointer' 
+                }}
                 type='submit'
+                disabled={ !subscriptions && count >= 3 }
               >
                 Cadastrar
               </button>
             </form>
+
+            {!subscriptions && count >= 3 && (
+              <Link href='/plans' 
+                className='text-xs mt-5 text-white sm:text-sm'
+              >
+                Você atingiou seu limite de cortes. <span className='text-green font-bold' >Seja premium</span>.
+              </Link>
+            )}
           </main>
         </div>
       </Container>
     </>
   );
 };
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  try{
+    const apiClient = setupAPIClient(ctx);
+
+    const checkResponse = await apiClient.get('/haircut/check');
+    const countResponse = await apiClient.get('/haircut/count');
+
+    return{
+      props:{
+        subscriptions: checkResponse.data?.subscriptions?.status === 'active' ? true : false,
+        count: countResponse.data, 
+      },
+    };
+
+  }catch(err){
+    console.log(err);
+
+    return{
+      redirect:{
+        destination: '/dashboard',
+        permanent: false,
+      },
+    };
+  };
+});

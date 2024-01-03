@@ -9,7 +9,7 @@ import { Container } from '@/components/container';
 import { Switch } from '@/components/switch';
 import { IoPricetag } from "react-icons/io5";
 
-export default function Heircuts(){
+export default function Haircuts(){
   const { mobileScreen } = useContext(AuthContext);
 
   const [isChecked, setIsChecked] = useState(true);
@@ -42,7 +42,7 @@ export default function Heircuts(){
             </div>
           </header>
 
-          <Link href='/heircuts/new'>
+          <Link href='/haircuts/new'>
             <button className='h-9 text-white font-bold bg-btnColor px-3 rounded mt-4' >
               Cadastrar novo
             </button>
