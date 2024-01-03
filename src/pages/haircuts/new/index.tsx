@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, FormEvent } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 import Head from 'next/head';
@@ -11,6 +11,7 @@ import { FaChevronLeft } from "react-icons/fa";
 
 import { canSSRAuth } from '@/utils/canSSRAuth';
 import { setupAPIClient } from '@/service/api';
+import toast from 'react-hot-toast';
 
 interface NewHaircutProps{
   subscriptions: boolean,
@@ -19,6 +20,35 @@ interface NewHaircutProps{
 
 export default function NewHaircut({ subscriptions, count }: NewHaircutProps){
   const { mobileScreen } = useContext(AuthContext);
+
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+
+  async function handleNewHaircut(event: FormEvent<HTMLFormElement>){
+    event.preventDefault();
+
+    if(name === '' || price === ''){
+      toast.error('Preencha todos os campos!');
+      return;
+    };
+
+    try{
+      const apiClient = setupAPIClient();
+
+      await apiClient.post('/haircut', {
+        name,
+        price: Number(price),
+      });
+
+      setName('');
+      setPrice('');
+      toast.success('Cadastrado com sucesso!');
+
+    }catch(err){
+      console.log(err);
+      toast.error('Ocorreu um erro.');
+    };
+  };
 
   return(
     <>
@@ -45,18 +75,25 @@ export default function NewHaircut({ subscriptions, count }: NewHaircutProps){
           <main className='w-full bg-primary p-3 rounded mt-8 flex flex-col items-center' >
             <h2 className='text-white font-bold text-3xl' >Cadastrar modelo</h2>
 
-            <form className='w-full mt-6' >
+            <form 
+              className='w-full mt-6' 
+              onSubmit={ handleNewHaircut }
+            >
               <input
                 className='w-full h-10 rounded mb-4 font-semibold text-white bg-bg px-3 border border-gray'
                 type='text'
                 name='name'
                 placeholder='Nome do corte'
+                value={ name }
+                onChange={ (event) => setName(event.target.value) }
               />
               <input
                 className='w-full h-10 rounded mb-4 font-semibold text-white bg-bg px-3 border border-gray'
                 type='text'
                 name='price'
                 placeholder='Preço exemplo: 45.90'
+                value={ price }
+                onChange={ (event) => setPrice(event.target.value) }
               />
 
               <button 
