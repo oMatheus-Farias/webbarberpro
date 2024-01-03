@@ -7,7 +7,7 @@ import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
 import { Container } from '@/components/container';
 import { Switch } from '@/components/switch';
-import { IoPricetag } from "react-icons/io5";
+import { HaircutItem } from '@/components/haircutItem';
 
 import { canSSRAuth } from '@/utils/canSSRAuth';
 import { setupAPIClient } from '@/service/api';
@@ -21,16 +21,37 @@ interface HaircutsItem{
 };
 
 interface HaircutsProps{
-  haircuts: HaircutsItem,
+  haircuts: HaircutsItem[],
 };
 
 export default function Haircuts({ haircuts }: HaircutsProps){
   const { mobileScreen } = useContext(AuthContext);
 
   const [isChecked, setIsChecked] = useState(true);
+  const [haircutList, setHaircutList] = useState<HaircutsItem[]>(haircuts || []);
 
-  function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>){
+  async function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>){
     setIsChecked(event.target.checked);
+
+    const apiClient = setupAPIClient();
+
+    if(event.target.checked === true){
+      const response = await apiClient.get('/haircuts', {
+        params:{
+          status: true,
+        },
+      });
+
+      setHaircutList(response.data);
+    }else{
+      const response = await apiClient.get('/haircuts', {
+        params:{
+          status: false,
+        },
+      });
+
+      setHaircutList(response.data);
+    };
   };
 
   return(
@@ -64,28 +85,13 @@ export default function Haircuts({ haircuts }: HaircutsProps){
           </Link>
 
           <main className='w-full flex flex-col' >
-            <section className='w-full mt-4 bg-primary p-3 flex items-center justify-between rounded' >
-              <div className='flex items-center gap-3' >
-                <IoPricetag size={34} color='#FBB231' />
-
-                <p className='text-white font-bold' >Corte normal</p>
-              </div>
-
-              <div>
-                <p className='text-white font-bold' >R$45.00</p>
-              </div>
-            </section>
-            <section className='w-full mt-4 bg-primary p-3 flex items-center justify-between rounded' >
-              <div className='flex items-center gap-3' >
-                <IoPricetag size={34} color='#FBB231' />
-
-                <p className='text-white font-bold' >Corte e barba</p>
-              </div>
-
-              <div>
-                <p className='text-white font-bold' >R$70.00</p>
-              </div>
-            </section>
+            {haircutList.map((item) => {
+              return(
+                <Link key={ item.id } href={ `/haircut/${item.id}` } >
+                  <HaircutItem name={ item.name } price={ item.price } />
+                </Link>
+              )
+            })}
           </main>
         </div>
       </Container>
