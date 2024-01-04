@@ -8,6 +8,7 @@ import { Container } from '@/components/container';
 import { canSSRAuth } from '@/utils/canSSRAuth';
 import { setupAPIClient } from '@/service/api';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 interface UserProps{
   id: string,
@@ -94,9 +95,11 @@ export default function Profile({ user, premium }: ProfileProps){
                   { premium ? 'Plano Premium' : 'Plano Grátis' }
                 </p>
 
-                <button className='bg-green text-white text-sm font-bold px-2 py-1 rounded' >
-                  Mudar Plano
-                </button>
+                <Link href='/plans' >
+                  <button className='bg-green text-white text-sm font-bold px-2 py-1 rounded' >
+                    Mudar Plano
+                  </button>
+                </Link>
               </div>
 
               <div className='flex flex-col gap-4 w-full mt-4' >
