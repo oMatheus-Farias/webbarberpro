@@ -1,18 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 import Head from 'next/head';
 import Link from 'next/link';
-import { IoPerson } from 'react-icons/io5';
 
 import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
 import { Container } from '@/components/container';
+import { ScheduleItem } from '@/components/scheduleItem';
 
 import { canSSRAuth } from '@/utils/canSSRAuth';
+import { setupAPIClient } from '@/service/api';
 
-export default function Dashboard(){
+interface HaircutProps{
+  id: string,
+  name: string,
+  price: number | string,
+  status: boolean,
+  user_id: string,
+};
+
+interface ScheduleItem{
+  id: string,
+  customer: string,
+  haircut: HaircutProps,
+};
+
+interface DashboardProps{
+  schedules: ScheduleItem[],
+};
+
+export default function Dashboard({ schedules }: DashboardProps){
   const { mobileScreen } = useContext(AuthContext);
+
+  const [list, setList] = useState(schedules.length > 0 ? schedules : []);
 
   return(
     <>
@@ -34,24 +55,17 @@ export default function Dashboard(){
           </header>
 
           <main className='w-full flex flex-col gap-4 mt-6' >
-            <section className='w-full flex flex-col gap-3 rounded p-3 bg-primary lg:flex-row lg:items-center lg:justify-between' >
-              <div className='flex items-center gap-3' >
-                <IoPerson size={33} color='#FBB231' />
-                <p className='text-white font-semibold' >Matheus Farias</p>
-              </div>
-
-              <p className='text-white font-semibold' >Corte Normal</p>
-              <p className='text-white font-semibold' >R$ 45.00</p>
-            </section>
-            <section className='w-full flex flex-col gap-3 rounded p-3 bg-primary lg:flex-row lg:items-center lg:justify-between' >
-              <div className='flex items-center gap-3' >
-                <IoPerson size={33} color='#FBB231' />
-                <p className='text-white font-semibold' >Matheus Farias</p>
-              </div>
-
-              <p className='text-white font-semibold' >Corte Normal</p>
-              <p className='text-white font-semibold' >R$ 45.00</p>
-            </section>
+            {list.map(item => {
+              return(
+                <button key={ item?.id } >
+                  <ScheduleItem 
+                    customer={ item?.customer } 
+                    haircut={ item?.haircut?.name }  
+                    price={ item?.haircut?.price } 
+                  />
+                </button>
+              )
+            })}
           </main>
         </div>
       </Container>
@@ -60,7 +74,22 @@ export default function Dashboard(){
 };
 
 export const getServerSideProps = canSSRAuth(async (ctx) => {
-  return {
-    props: {},
+  try{
+    const apiClient = setupAPIClient(ctx);
+    const response = await apiClient.get('/schedule');
+
+    return{
+      props:{
+        schedules: response.data,
+      },
+    };
+
+  }catch(err){
+    console.log(err);
+    return{
+      props:{
+        schedules: [],
+      },
+    };
   };
 });

@@ -68,7 +68,7 @@ export default function NewService({ haircuts }: HaircutsProps){
   return(
     <>
       <Head>
-        <title>BarberPRO - Novo modelo de corte</title>
+        <title>BarberPRO - Novo agendamento</title>
       </Head>
       <Container>
         {mobileScreen !== null ? mobileScreen ? <HeaderMobile/> : <SidebarDasktop/> : ''}
