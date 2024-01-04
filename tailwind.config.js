@@ -19,6 +19,7 @@ module.exports = {
         red: '#FF3E3E',
         gray: '#585858',
         btnColor: '#2D3748',
+        bgModal: 'rgba(0, 0, 0, 0.5)',
       },
     },
   },

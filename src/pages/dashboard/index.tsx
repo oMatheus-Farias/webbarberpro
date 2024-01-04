@@ -8,6 +8,7 @@ import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
 import { Container } from '@/components/container';
 import { ScheduleItem } from '@/components/scheduleItem';
+import { Modal } from '@/components/modal';
 
 import { canSSRAuth } from '@/utils/canSSRAuth';
 import { setupAPIClient } from '@/service/api';
@@ -20,7 +21,7 @@ interface HaircutProps{
   user_id: string,
 };
 
-interface ScheduleItem{
+export interface ScheduleItem{
   id: string,
   customer: string,
   haircut: HaircutProps,
@@ -32,8 +33,14 @@ interface DashboardProps{
 
 export default function Dashboard({ schedules }: DashboardProps){
   const { mobileScreen } = useContext(AuthContext);
-
   const [list, setList] = useState(schedules.length > 0 ? schedules : []);
+  const [scheduleSelected, setScheduleSelected] = useState<ScheduleItem | null>();
+  const [openModal, setOpenModal] = useState(false);
+
+  function handleOpenModal(item: ScheduleItem){
+    setScheduleSelected(item);
+    setOpenModal(true);
+  };
 
   return(
     <>
@@ -57,7 +64,10 @@ export default function Dashboard({ schedules }: DashboardProps){
           <main className='w-full flex flex-col gap-4 mt-6' >
             {list.map(item => {
               return(
-                <button key={ item?.id } >
+                <button 
+                  key={ item?.id }
+                  onClick={ () => handleOpenModal(item) } 
+                >
                   <ScheduleItem 
                     customer={ item?.customer } 
                     haircut={ item?.haircut?.name }  
@@ -69,6 +79,8 @@ export default function Dashboard({ schedules }: DashboardProps){
           </main>
         </div>
       </Container>
+
+      {openModal && <Modal closeModal={ () => setOpenModal(false) } schedule={ scheduleSelected } />}
     </>
   );
 };
