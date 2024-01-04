@@ -2,11 +2,19 @@ import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 import Head from 'next/head';
+import Link from 'next/link';
 import { Container } from '@/components/container';
 import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
 
-export default function Plans(){
+import { canSSRAuth } from '@/utils/canSSRAuth';
+import { setupAPIClient } from '@/service/api';
+
+interface PlansProps{
+  premium: boolean,
+};
+
+export default function Plans({ premium }: PlansProps){
   const { mobileScreen } = useContext(AuthContext);
 
   return(
@@ -35,16 +43,28 @@ export default function Plans(){
               <h2 className='text-center text-2xl text-green font-semibold' >Premium</h2>
 
               <ul className='mt-4 flex flex-col gap-4 list-disc p-5' >
-                <li className='text-white font-bold' >Registrar cortes</li>
-                <li className='text-white font-bold' >Criar apenas 3 modelos</li>
+                <li className='text-white font-bold' >Registrar cortes ilimitados</li>
+                <li className='text-white font-bold' >Criar modelos ilimitados</li>
                 <li className='text-white font-bold' >Editar seu perfil</li>
                 <li className='text-white font-bold' >Editar tipos de corte</li>
                 <li className='text-white font-bold' >Recebe todas atualizações</li>
               </ul>
 
-              <button className='w-full px-3 py-2 mt-5 rounded bg-secondary text-primary font-bold uppercase' >
-                Virar Premium
-              </button>
+              {premium === true ? (
+                <div className='flex flex-col gap-4' >
+                  <div className='w-full px-3 py-2 rounded bg-bg text-gray font-bold uppercase text-center' >
+                    Você já é premium
+                  </div>
+                  
+                    <button className='w-full px-3 py-2 rounded bg-white text-primary font-bold uppercase' >
+                      Alterar assinatura
+                    </button>
+                </div>
+              ): (
+                  <button className='w-full px-3 py-2 mt-5 rounded bg-secondary text-primary font-bold uppercase' >
+                    Virar Premium
+                  </button>
+              )}
             </section>
           </main>
         </div>
@@ -52,3 +72,28 @@ export default function Plans(){
     </>
   );
 };
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  try{
+    const apiClient = setupAPIClient(ctx);
+
+    const response = await apiClient.get('/haircut/check');
+
+    console.log(response.data);
+
+    return{
+      props:{
+        premium: response.data?.subscriptions?.status === 'active' ? true : false,
+      },
+    };
+
+  }catch(err){
+    console.log(err);
+    return{
+      redirect:{
+        destination: '/dashboard',
+        permanent: false,
+      },
+    };
+  };
+});
