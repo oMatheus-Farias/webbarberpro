@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 import Head from 'next/head';
@@ -36,6 +36,22 @@ export default function Dashboard({ schedules }: DashboardProps){
   const [list, setList] = useState(schedules.length > 0 ? schedules : []);
   const [scheduleSelected, setScheduleSelected] = useState<ScheduleItem | null>();
   const [openModal, setOpenModal] = useState(false);
+
+  useEffect(() => {
+    async function updateList(){
+      try{
+        const apiClient = setupAPIClient();
+  
+        const response = await apiClient.get('/schedule');
+        setList(response?.data);
+  
+      }catch(err){
+        console.log(err);
+      };
+    };
+
+    updateList();
+  }, [list]);
 
   function handleOpenModal(item: ScheduleItem){
     setScheduleSelected(item);
@@ -80,7 +96,11 @@ export default function Dashboard({ schedules }: DashboardProps){
         </div>
       </Container>
 
-      {openModal && <Modal closeModal={ () => setOpenModal(false) } schedule={ scheduleSelected } />}
+      {openModal && <Modal 
+        closeModal={ () => setOpenModal(false) } 
+        schedule={ scheduleSelected } 
+        />
+      }
     </>
   );
 };

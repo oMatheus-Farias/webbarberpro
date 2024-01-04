@@ -2,6 +2,9 @@ import { IoMdClose } from 'react-icons/io';
 import { IoPerson, IoCash  } from 'react-icons/io5';
 import { FiScissors } from 'react-icons/fi';
 
+import { setupAPIClient } from '@/service/api';
+import toast from 'react-hot-toast';
+
 interface HaircutProps{
   id: string,
   name: string,
@@ -22,6 +25,30 @@ interface ModalProps{
 };
 
 export function Modal({ closeModal, schedule }: ModalProps){
+  async function handleFinishSchedule(id: string){
+    if(!id){
+      return;
+    };
+
+    try{
+      const apiClient = setupAPIClient();
+
+      await apiClient.delete('/schedule', {
+        params:{
+          schedule_id: id,
+        },
+      });
+
+      toast.success('Finalizado com sucesso!');
+      closeModal();
+
+
+    }catch(err){
+      console.log(err),
+      toast.error('Ocorreu um erro.');
+    };
+  };
+
   return(
     <div className="absolute top-0 left-0 w-full min-h-screen flex justify-center items-center bg-bgModal" >
       <section className="w-[90%] max-w-[31.87em] p-4 rounded bg-primary" >
@@ -50,7 +77,10 @@ export function Modal({ closeModal, schedule }: ModalProps){
         </section>
 
         <div className='w-full flex justify-end mt-16' >
-          <button className='bg-secondary rounded py-1 px-2 text-primary font-bold' >
+          <button 
+            onClick={ () => handleFinishSchedule(schedule?.id) }
+            className='bg-secondary rounded py-1 px-2 text-primary font-bold' 
+          >
             Finalizar serviço
           </button>
         </div>
