@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import toast from 'react-hot-toast';
 
 import Head from 'next/head';
-import Link from 'next/link';
 import { Container } from '@/components/container';
 import { HeaderMobile } from '@/components/headerMobile';
 import { SidebarDasktop } from '@/components/sidebarDasktop';
@@ -16,6 +16,10 @@ interface PlansProps{
 
 export default function Plans({ premium }: PlansProps){
   const { mobileScreen } = useContext(AuthContext);
+
+  function handlePlans(){
+    toast.error('Indisponivel.');
+  };
 
   return(
     <>
@@ -56,12 +60,16 @@ export default function Plans({ premium }: PlansProps){
                     Você já é premium
                   </div>
                   
-                    <button className='w-full px-3 py-2 rounded bg-white text-primary font-bold uppercase' >
+                    <button 
+                      onClick={handlePlans}
+                      className='w-full px-3 py-2 rounded bg-white text-primary font-bold uppercase' >
                       Alterar assinatura
                     </button>
                 </div>
               ): (
-                  <button className='w-full px-3 py-2 mt-5 rounded bg-secondary text-primary font-bold uppercase' >
+                  <button 
+                    onClick={handlePlans}
+                    className='w-full px-3 py-2 mt-5 rounded bg-secondary text-primary font-bold uppercase' >
                     Virar Premium
                   </button>
               )}
