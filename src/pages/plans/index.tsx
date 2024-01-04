@@ -69,7 +69,7 @@ export default function Plans({ premium }: PlansProps){
               ): (
                   <button 
                     onClick={handlePlans}
-                    className='w-full px-3 py-2 mt-5 rounded bg-secondary text-primary font-bold uppercase' >
+                    className='w-full px-3 py-2 mt-5 rounded bg-secondary text-primary font-bold uppercase hover:bg-bg hover:text-secondary' >
                     Virar Premium
                   </button>
               )}
