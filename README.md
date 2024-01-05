@@ -1,40 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo do projeto](https://raw.githubusercontent.com/oMatheus-Farias/web-cars/main/src/assets/mockup-webCars.png)
 
-## Getting Started
+# WebCars
 
-First, run the development server:
+WebCars é um projeto inspirado no site WebMotors, construído utilizando Vite como framework inicial e uma pilha de tecnologias que inclui ReactJS, Typescript, tailwindcss e Firebase. A plataforma Firebase é utilizada para autenticação, Firestore para armazenamento de dados e Firebase Storage para armazenar imagens dos carros. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🔥 Funcionalidades Principais
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Autenticação:** O login do usuário é obrigatório para acessar determinadas páginas, garantindo uma experiência personalizada.
+- **Registro:** Novos usuários podem se cadastrar, fornecendo seu nome, email e senha.
+- **Home:** Exibe uma lista de todos os carros de diferentes usuários, acessível sem fazer login.
+- **Dashboard:** Os usuários podem gerenciar seus anúncios de carros, excluir anúncios e navegar para outras páginas.
+- **Cadastrar Carro:** Permite que os usuários adicionem um novo carro à plataforma com imagens, detalhes e preço.
+- **Detalhes do Carro:** Oferece uma visão detalhada de um carro específico, incluindo um swiper para imagens e um botão para entrar em contato com o vendedor via WhatsApp.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### ⚙️ Pré-requisitos
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- npm ou yarn
+- Vite
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 🔨 Guia de instalação
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Clone o repositório: `git clone https://github.com/oMatheus-Farias/web-cars.git`>
+2. Navegue até o diretório do projeto: `cd web-cars`
+3. Instale as dependências: `npm install` (ou use o gerenciador de pacotes apropriado)
+4. Inicie o servidor: `npm run dev` (ou use o comando adequado)
+5. O aplicativo estará disponível no localhost que aparecera no seu painel ex: [http://localhost:3000](http://localhost:3000/)
 
-## Learn More
+### 📦 Tecnologias usadas
 
-To learn more about Next.js, take a look at the following resources:
+* ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+* ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
+* ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+* ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+* ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 📄 Licença
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Este projeto está sob a [Licença MIT](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
