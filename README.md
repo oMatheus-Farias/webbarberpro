@@ -1,27 +1,27 @@
-![Logo do projeto](https://raw.githubusercontent.com/oMatheus-Farias/web-cars/main/src/assets/mockup-webCars.png)
+![Logo do projeto](https://raw.githubusercontent.com/oMatheus-Farias/webbarberpro/main/public/mockup-BarberPRO.png)
 
-# WebCars
+# BarberPRO
 
-WebCars é um projeto inspirado no site WebMotors, construído utilizando Vite como framework inicial e uma pilha de tecnologias que inclui ReactJS, Typescript, tailwindcss e Firebase. A plataforma Firebase é utilizada para autenticação, Firestore para armazenamento de dados e Firebase Storage para armazenar imagens dos carros. 
+BarberPRO é uma aplicação web desenvolvida para atender às necessidades específicas de barbearias, proporcionando uma gestão eficiente dos serviços, cortes e informações dos clientes. O sistema foi construído utilizando tecnologias modernas como NextJS, TypeScript, Context API, TailwindCSS, NodeJS, PostgreSQL, Prisma, e Git.
 
 ## 🔥 Funcionalidades Principais
 
-- **Autenticação:** O login do usuário é obrigatório para acessar determinadas páginas, garantindo uma experiência personalizada.
-- **Registro:** Novos usuários podem se cadastrar, fornecendo seu nome, email e senha.
-- **Home:** Exibe uma lista de todos os carros de diferentes usuários, acessível sem fazer login.
-- **Dashboard:** Os usuários podem gerenciar seus anúncios de carros, excluir anúncios e navegar para outras páginas.
-- **Cadastrar Carro:** Permite que os usuários adicionem um novo carro à plataforma com imagens, detalhes e preço.
-- **Detalhes do Carro:** Oferece uma visão detalhada de um carro específico, incluindo um swiper para imagens e um botão para entrar em contato com o vendedor via WhatsApp.
-
+- **API Segura com NodeJS:** Uma API robusta foi desenvolvida em NodeJS para gerenciar as requisições da aplicação, garantindo eficiência e segurança.
+- **Cadastro e Login Seguros:** Sistema de cadastro e login seguro com criptografia de senha, geração de token JWT para autenticação e páginas de cadastro e login acessíveis apenas por usuários deslogados.
+- **Dashboard:** Ao logar, os usuários são redirecionados para o dashboard, onde a agenda da barbearia é exibida. Informações sobre serviços cadastrados incluem nome do cliente, tipo de corte e preço. Possibilidade de finalizar um serviço, removendo-o do banco de dados.
+- **Página de Cortes:** Lista de cortes cadastrados pelo usuário, com opção de filtrar entre ativos e inativos. Usuários premium podem cadastrar quantos modelos de corte desejarem; não premium têm limite de três cortes. Botão de cadastrar novo direciona para a página de cadastro de modelo de corte.
+Página de editar modelo acessível apenas para usuários premium.
+- **Minha Conta:** Os usuários podem editar o nome da barbearia e adicionar um endereço. Opção de fazer logout da conta. Indicação do plano do usuário (premium ou gratuito). Botão para mudar de plano direciona para a página de Planos.
+- **Planos:** Página com informações detalhadas sobre os planos (gratuito e premium). Botão "Virar Premium" para usuários gratuitos. Mensagem indicando que o usuário já é premium, com opção de mudar de plano para usuários premium.
+  
 ### ⚙️ Pré-requisitos
 
 - npm ou yarn
-- Vite
 
 ### 🔨 Guia de instalação
 
-1. Clone o repositório: `git clone https://github.com/oMatheus-Farias/web-cars.git`>
-2. Navegue até o diretório do projeto: `cd web-cars`
+1. Clone o repositório: `git clone https://github.com/oMatheus-Farias/webbarberpro.git`>
+2. Navegue até o diretório do projeto: `cd webbarberpro`
 3. Instale as dependências: `npm install` (ou use o gerenciador de pacotes apropriado)
 4. Inicie o servidor: `npm run dev` (ou use o comando adequado)
 5. O aplicativo estará disponível no localhost que aparecera no seu painel ex: [http://localhost:3000](http://localhost:3000/)
@@ -29,12 +29,13 @@ WebCars é um projeto inspirado no site WebMotors, construído utilizando Vite c
 ### 📦 Tecnologias usadas
 
 * ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 * ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-* ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
-* ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-* ![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
-* ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+* ![Context-API](https://img.shields.io/badge/Context--Api-000000?style=for-the-badge&logo=react)
+* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+* ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+* ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+* ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
 
 ### 📄 Licença
