@@ -2,7 +2,7 @@
 
 # BarberPRO
 
-BarberPRO é uma aplicação web desenvolvida para atender às necessidades específicas de barbearias, proporcionando uma gestão eficiente dos serviços, cortes e informações dos clientes. O sistema foi construído utilizando tecnologias modernas como NextJS, TypeScript, Context API, TailwindCSS, NodeJS, PostgreSQL, Prisma, e Git.
+BarberPRO é uma aplicação web full stack desenvolvida para atender às necessidades específicas de barbearias, proporcionando uma gestão eficiente dos serviços, cortes e informações dos clientes. O sistema foi construído utilizando tecnologias modernas como NextJS, TypeScript, Context API, TailwindCSS, NodeJS, PostgreSQL, Prisma, e Git.
 
 ## 🔥 Funcionalidades Principais
 
